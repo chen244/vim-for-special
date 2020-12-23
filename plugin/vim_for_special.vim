@@ -193,6 +193,6 @@ endfunc
 
 map <F7> :call DebugGO()<CR>
 map <C-n> :call Get_Start()<CR>
-map <C-k> :call Compileforopencv<CR>
+map <C-k> :call Compileforopencv()<CR>
 map <F6> :call Compileforspecial()<CR>
 map <F5> :call CompileRunGcc()<CR>
