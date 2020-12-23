@@ -43,6 +43,7 @@ func! Compileforspecial()
         exec "vs"
         "exec "terminal javac --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls % && java --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls %<"
         exec "terminal javac --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls % && java --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls " . now
+        exec "set nonumber"
     endif
 endfunc
 func! Compileforopencv()
