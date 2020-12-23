@@ -190,6 +190,10 @@ func! DebugGO()
         "exec "terminal w3m 127.0.0.1/%"
         exec "terminal elinks 127.0.0.1/%"
         exec "set nonumber"
+    elseif &filetype == 'java'    
+        exec "vsplit"
+        exec "terminal javac %"
+        exec "set nonumber"
     endif
 endfunc
 
