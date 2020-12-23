@@ -49,6 +49,7 @@ func! Compileforopencv()
     if &filetype == 'cpp'
         exec 'vsplit'
         exec 'terminal g++ % -o %< `pkg-config --cflags --libs opencv` && ./%<'
+        exec "set nonumber"
     endif
 endfunc
 func! CompileRunGcc()
