@@ -1,4 +1,4 @@
-# vim-for-special 
+# vim-run 
 this plugin is for some special project,like lncurse ,html and javafx
 ### How to use
 * use F6 to compile these project.
@@ -23,3 +23,7 @@ export CLASSPATH=$CLASSPATH:/usr/share/openjfx/lib/*
 ```
 
 After you finish all of these,the next time when you create a project of javafx, you can use Ctrl-n to import the lib,then you can enjoy your develop on vim with this plugin and <I>You-complete-Me</I>!
+
+### Now it can do more
+You can use F5 to run most project, include java,cpp,c,html,and more
+use ctrl-k to run opencv for cpp (when you use linux)
