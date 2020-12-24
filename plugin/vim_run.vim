@@ -1,7 +1,14 @@
-func! Get_Start()
-    if &filetype == 'java'
-        exec "!mkdir lib && cp /usr/share/openjfx/lib/* ./lib"
-    endif
+"func! Get_Start()
+"    if &filetype == 'java'
+"        exec "!mkdir lib && cp /usr/share/openjfx/lib/* ./lib"
+"    endif
+"endfunc
+func! Mvn_compile()
+    let temp = system("awk 'NR==1' run")
+    exec "w"
+    exec "vs"
+    exec "terminal mvn compile && " . temp
+    exec "set nonumber"
 endfunc
 func! Get_location()
     let m = bufname('%') 
@@ -39,11 +46,10 @@ func! Compileforspecial()
     elseif (&filetype == 'html' || &filetype == 'xhtml')
         exec "!google-chrome-stable % &"
     elseif &filetype == 'java'
-        let now = Get_location()
-        exec "vs"
-        "exec "terminal javac --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls % && java --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls %<"
-        exec "terminal javac --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls % && java --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls " . now
-        exec "set nonumber"
+        "let now = Get_location()
+        "exec "vs"
+        "exec "terminal javac --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls % && java --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls " . now
+        exec "call Mvn_compile()"
     endif
 endfunc
 func! Compileforopencv()
@@ -198,7 +204,7 @@ func! DebugGO()
 endfunc
 
 map <F7> :call DebugGO()<CR>
-map <C-n> :call Get_Start()<CR>
+"map <C-n> :call Get_Start()<CR>
 map <C-k> :call Compileforopencv()<CR>
 map <F6> :call Compileforspecial()<CR>
 map <F5> :call CompileRunGcc()<CR>
