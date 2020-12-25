@@ -3,6 +3,7 @@
 "        exec "!mkdir lib && cp /usr/share/openjfx/lib/* ./lib"
 "    endif
 "endfunc
+
 func! Mvn_compile()
     let temp = system("awk 'NR==1' run")
     exec "w"
@@ -10,6 +11,25 @@ func! Mvn_compile()
     exec "terminal mvn compile && " . temp
     exec "set nonumber"
 endfunc
+"func! Get_tail()
+"    let m2 = bufname('%') 
+"    let location=strlen(m2)
+"    let i=0
+"    while i<strlen(m2)
+"        if(m2[i]=='.')
+"            let location=i
+"        endif
+"        let i+=1
+"    endwhile
+"    let m2=m2[location+1:]
+"    return m2
+"endfunc
+"if (Get_tail() == 'png' || Get_tail() == 'jpg')
+"    "exec 'terminal w3m -o ext_image_viewer=0 %'
+"    
+"    exec 'terminal ./test.sh %'
+"    exec 'set nonumber'
+"endif
 func! Get_location()
     let m = bufname('%') 
     let location=strlen(m)
@@ -50,6 +70,9 @@ func! Compileforspecial()
         "exec "vs"
         "exec "terminal javac --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls % && java --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls " . now
         exec "call Mvn_compile()"
+    elseif &filetype == 'gdscript3'
+        exec "vs"
+        exec 'terminal godot --path .'
     endif
 endfunc
 func! Compileforopencv()
@@ -65,9 +88,9 @@ func! CompileRunGcc()
 
     if &filetype == 'c'
     
-        exec "!g++ % -o %<"
+        "exec "!g++ % -o %<"
         exec "vsplit"
-        exec "terminal ./%<"
+        exec "terminal .g++ % -o %< && /%<"
         exec "set nonumber"
         "exec "!time ./%<"
     
@@ -152,7 +175,8 @@ func! CompileRunGcc()
         exec "terminal cargo build && cargo run"
         "exec "terminal cargo run"
     elseif &filetype == 'julia'
-            exec "!julia %"
+        exec "vs"    
+        exec "terminal julia %"
     elseif &filetype == 'vim'
             exec "source %"
     elseif &filetype == 'nroff'
